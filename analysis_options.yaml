@@ -1,0 +1,10 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    avoid_print: false
+    prefer_relative_imports: true
+    prefer_const_constructors: true
+    prefer_single_quotes: true
+    avoid_unnecessary_containers: false
+    use_build_context_synchronously: true
