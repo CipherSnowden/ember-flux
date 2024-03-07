@@ -1,8 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wakelock/wakelock.dart';
 
-import 'features/home/home_page.dart';
+import 'features/cart/presentation/bloc/cart_bloc.dart';
+import 'features/cart/presentation/pages/review_cart_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kDebugMode) {
+    await Wakelock.enable();
+  }
   runApp(const MainAppConfig());
 }
 
@@ -11,7 +19,10 @@ class MainAppConfig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MainApp();
+    return BlocProvider(
+      create: (context) => CartCubit(),
+      child: const MainApp(),
+    );
   }
 }
 
@@ -21,11 +32,17 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+        colorScheme: const ColorScheme.light(
+          background: Color(0xFFF5F5F5),
+          onBackground: Colors.black,
+        ),
+      ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const HomeScreen(),
+        '/': (context) => const ReviewCartScreen(),
       },
-      home: const HomeScreen(),
     );
   }
 }
